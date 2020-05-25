@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.awg.examples'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "org.testng:testng:7.1.0"
+    testCompile "io.rest-assured:rest-assured:4.3.0"
+    testCompile "io.rest-assured:json-schema-validator:4.3.0"
+    testCompile "com.fasterxml.jackson.core:jackson-annotations:2.11.0"
+    testCompile "com.fasterxml.jackson.core:jackson-databind:2.11.0"
+    testCompile "io.qameta.allure:allure-testng:2.13.3"
+    testCompile "io.qameta.allure:allure-rest-assured:2.13.3"
+    testCompile "org.slf4j:slf4j-nop:1.7.30"
+    testCompile "org.assertj:assertj-core:3.16.0"
+    testCompile "com.github.javafaker:javafaker:1.0.2"
+    testCompileOnly "org.projectlombok:lombok:1.18.12"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.12"
+}
+
+test {
+    int threads = 1
+    if (project.getProperties().get('n') != null) {
+        threads = project.getProperties().get('n').toInteger()
+    }
+    useTestNG() {
+        options {
+            setParallel('classes')
+            setThreadCount(threads)
+        }
+    }
+}
