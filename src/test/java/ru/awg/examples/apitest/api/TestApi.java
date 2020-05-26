@@ -15,7 +15,7 @@ public abstract class TestApi {
     private static RequestSpecBuilder baseSpec() {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
-                .setBaseUri(Config.properties.getProperty("testapi.base_url"))
+                .setBaseUri(Config.getValue("testapi.base_url"))
                 .addFilter(new AllureRestAssured());
     }
 
